@@ -30,6 +30,8 @@ import Layout from "./components/Layout";
 import AboutUs from "./pages/AboutUs";
 import Faq from "./pages/Faq";
 import Profile from "./pages/Profile";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Header from "./components/Header";
 
 const routes = [
@@ -80,6 +82,24 @@ const routes = [
     main: () => (
       <Layout>
         <Profile />
+      </Layout>
+    ),
+  },
+  {
+    path: "/login",
+    exact: true,
+    main: () => (
+      <Layout>
+        <Login />
+      </Layout>
+    ),
+  },
+  {
+    path: "/signup",
+    exact: true,
+    main: () => (
+      <Layout>
+        <Signup />
       </Layout>
     ),
   },

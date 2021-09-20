@@ -1,7 +1,8 @@
 import React from "react";
 import Cars from "../pages/Cars";
 import Home from "../pages/Home";
-import bgImage from "../assets/abstract-envelope.svg";
+import bgImage from "../assets/Simple Shiny.svg";
+import car from "../assets/car.jpeg";
 
 export default function Layout(props) {
   return (
@@ -9,6 +10,7 @@ export default function Layout(props) {
       style={{
         flexGrow: "2",
         margin: "10px",
+        // backgroundImage: car,
         // background: "red",
       }}
     >
