@@ -18,8 +18,6 @@ import {
   FaCarSide,
   FaGithub,
   FaHome,
-  FaLandmark,
-  FaPersonBooth,
   FaQuestion,
 } from "react-icons/fa";
 import { GoPerson, GoSignIn, GoSignOut } from "react-icons/go";
@@ -32,17 +30,20 @@ import Layout from "./components/Layout";
 import AboutUs from "./pages/AboutUs";
 import Faq from "./pages/Faq";
 import Profile from "./pages/Profile";
-import { ca } from "date-fns/locale";
-import { maxWidth } from "@mui/system";
+import Header from "./components/Header";
 
 const routes = [
   {
     path: "/",
     exact: true,
+
     main: () => (
-      <Layout>
-        <Home />
-      </Layout>
+      <div>
+        <Header pageName="Home" />;
+        <Layout>
+          <Home />
+        </Layout>
+      </div>
     ),
   },
   {
@@ -68,6 +69,7 @@ const routes = [
     exact: true,
     main: () => (
       <Layout>
+        <Header pageName="FAQ" />
         <Faq />
       </Layout>
     ),
