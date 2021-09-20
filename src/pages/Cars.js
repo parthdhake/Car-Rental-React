@@ -1,9 +1,11 @@
 import React from "react";
+import Header from "../components/Header";
 
 export default function Cars() {
   return (
     <div>
-      <p>esdvbsdbf</p>
+      <Header pageName="Home" />
+      <div></div>
     </div>
   );
 }

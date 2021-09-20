@@ -1,4 +1,5 @@
 import "./App.css";
+import "./pages/css/main.css";
 import {
   ProSidebar,
   Menu,
@@ -9,16 +10,31 @@ import {
 import "react-pro-sidebar/dist/css/styles.css";
 import StickyBox from "react-sticky-box/dist/esnext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import carimage from "./assets/car.jpeg";
 
 import { MdMenu } from "react-icons/md";
-import { FaGithub, FaHome } from "react-icons/fa";
-import { GoSignOut } from "react-icons/go";
+import {
+  FaAngleDoubleUp,
+  FaCarSide,
+  FaGithub,
+  FaHome,
+  FaLandmark,
+  FaPersonBooth,
+  FaQuestion,
+} from "react-icons/fa";
+import { GoPerson, GoSignIn, GoSignOut } from "react-icons/go";
 import { Link } from "react-router-dom";
 import Home from "./pages/Home";
 import { useSelector, useDispatch } from "react-redux";
 import { setCollapseStatus } from "./features/sidebarSlice";
 import Cars from "./pages/Cars";
 import Layout from "./components/Layout";
+import AboutUs from "./pages/AboutUs";
+import Faq from "./pages/Faq";
+import Profile from "./pages/Profile";
+import { ca } from "date-fns/locale";
+import { maxWidth } from "@mui/system";
+
 const routes = [
   {
     path: "/",
@@ -35,6 +51,33 @@ const routes = [
     main: () => (
       <Layout>
         <Cars />
+      </Layout>
+    ),
+  },
+  {
+    path: "/aboutus",
+    exact: true,
+    main: () => (
+      <Layout>
+        <AboutUs />
+      </Layout>
+    ),
+  },
+  {
+    path: "/faq",
+    exact: true,
+    main: () => (
+      <Layout>
+        <Faq />
+      </Layout>
+    ),
+  },
+  {
+    path: "/profile",
+    exact: true,
+    main: () => (
+      <Layout>
+        <Profile />
       </Layout>
     ),
   },
@@ -64,14 +107,31 @@ function App() {
                 >
                   Car Rental
                 </MenuItem>
+                <img
+                  src={carimage}
+                  alt="logo"
+                  width="100%"
+                  style={{
+                    padding: "10px 0px",
+                  }}
+                />
               </Menu>
             </SidebarHeader>
             <Menu iconShape="square">
               <MenuItem icon={<FaHome />}>
                 <Link to="/">Home</Link>
               </MenuItem>
-              <MenuItem icon={<FaHome />}>
+              <MenuItem icon={<FaCarSide />}>
                 <Link to="/cars">Cars</Link>
+              </MenuItem>
+              <MenuItem icon={<FaQuestion />}>
+                <Link to="/faq">FAQ</Link>
+              </MenuItem>
+              <MenuItem icon={<GoPerson />}>
+                <Link to="/profile">Profile</Link>
+              </MenuItem>
+              <MenuItem icon={<GoSignIn />}>
+                <Link to="/aboutus">About us</Link>
               </MenuItem>
             </Menu>
             <SidebarFooter>
