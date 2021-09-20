@@ -1,0 +1,15 @@
+.MuiPaper-root {
+  background-color: #fff;
+}
+
+.pro-sidebar {
+  color: #20fd55 !important;
+}
+
+.pro-sidebar > .pro-sidebar-inner {
+  background-color: #1e1e1e !important;
+}
+
+.pro-sidebar .pro-menu a {
+  color: white !important;
+}
