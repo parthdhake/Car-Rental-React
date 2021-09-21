@@ -14,7 +14,7 @@ export default function Signup() {
                 <input type="text" placeholder="FULLNAME" />
                 <input type="text" placeholder="USERNAME" />
                 <input type="email" placeholder="EMAIL" />
-                <input type="text" placeholder="PASSWORD" />
+                <input type="password" placeholder="PASSWORD" />
                 <button class="submit">LET'S GO</button>
                 <p style={{ color: "black" }}>
                   Already have an account? <Link to="/login">Login</Link>

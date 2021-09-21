@@ -12,7 +12,7 @@ export default function Login() {
               <form action="" style={{ textAlign: "center" }}>
                 <h3>SIGN IN</h3>
                 <input type="text" placeholder="USERNAME" />
-                <input type="text" placeholder="PASSWORD" />
+                <input type="password" placeholder="PASSWORD" />
                 <button class="submit">LET'S GO</button>
                 <p style={{ color: "black" }}>
                   Don't have an account yet? <Link to="/signup">Register</Link>
