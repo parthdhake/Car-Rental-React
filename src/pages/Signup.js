@@ -135,6 +135,11 @@ export default function Signup() {
                 <p style={{ color: "black" }}>
                   Already have an account? <Link to="/login">Login</Link>
                 </p>
+                {error && (
+                  <p style={{ color: "red" }}>
+                    {error} Or username already taken
+                  </p>
+                )}
               </form>
             </div>
           </div>

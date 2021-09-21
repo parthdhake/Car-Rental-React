@@ -156,7 +156,7 @@ function App() {
   }, [verifyUser]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/user/me", {
+    fetch("http://localhost:5000/me", {
       method: "GET",
       credentials: "include",
       // Pass authentication token as bearer token in header
