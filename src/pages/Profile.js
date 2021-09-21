@@ -11,7 +11,7 @@ import { CardHeader } from "@mui/material";
 export default function Profile() {
   return (
     <div>
-      <Header />
+      <Header pageName="Profile" />
       <div>
         <Card style={{ margin: "50px" }}>
           <CardHeader title="Profile" />

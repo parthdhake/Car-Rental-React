@@ -1,5 +1,4 @@
 import "./App.css";
-import "./pages/css/main.css";
 import {
   ProSidebar,
   Menu,
@@ -32,7 +31,6 @@ import Faq from "./pages/Faq";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Header from "./components/Header";
 
 const routes = [
   {
@@ -40,12 +38,9 @@ const routes = [
     exact: true,
 
     main: () => (
-      <div>
-        <Header pageName="Home" />;
-        <Layout>
-          <Home />
-        </Layout>
-      </div>
+      <Layout>
+        <Home />
+      </Layout>
     ),
   },
   {
@@ -71,7 +66,6 @@ const routes = [
     exact: true,
     main: () => (
       <Layout>
-        <Header pageName="FAQ" />
         <Faq />
       </Layout>
     ),

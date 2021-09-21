@@ -6,22 +6,15 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { makeStyles } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import Header from "../components/Header";
 import "./css/main.css";
 
-const useStyles = makeStyles({
-  heading: {
-    fontSize: "1.1rem",
-  },
-});
-
 export default function Faq() {
-  const classes = useStyles();
-
   return (
     <div className="top-offset AboutUs">
+      <Header pageName="Home" />
+
       <div
         className="AboutUsAccordionHeading"
         style={{ margin: "0 200px 0 200px" }}
@@ -36,7 +29,7 @@ export default function Faq() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>
+            <Typography>
               What forms of payment are accepted for renting a car?
             </Typography>
           </AccordionSummary>
@@ -56,9 +49,7 @@ export default function Faq() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>
-              Is a car rental deposit required?
-            </Typography>
+            <Typography>Is a car rental deposit required?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -76,7 +67,7 @@ export default function Faq() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>
+            <Typography>
               Can I pay for the rental of a car for another individual?
             </Typography>
           </AccordionSummary>
@@ -96,9 +87,7 @@ export default function Faq() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>
-              Do you accept Cash or Money Orders?
-            </Typography>
+            <Typography>Do you accept Cash or Money Orders?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -117,7 +106,7 @@ export default function Faq() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>
+            <Typography>
               What steps are being taken to clean rental cars?
             </Typography>
           </AccordionSummary>
@@ -137,9 +126,7 @@ export default function Faq() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>
-              What is your pet policy?
-            </Typography>
+            <Typography>What is your pet policy?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -158,9 +145,7 @@ export default function Faq() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>
-              What is the current car rental process?
-            </Typography>
+            <Typography>What is the current car rental process?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -178,7 +163,7 @@ export default function Faq() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>
+            <Typography>
               Can I modify, extend, or cancel my reservation?
             </Typography>
           </AccordionSummary>
@@ -198,7 +183,7 @@ export default function Faq() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>
+            <Typography>
               What are your renter requirements for renting in the US and
               Canada?
             </Typography>
