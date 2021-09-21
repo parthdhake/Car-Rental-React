@@ -10,8 +10,10 @@ import "react-pro-sidebar/dist/css/styles.css";
 import StickyBox from "react-sticky-box/dist/esnext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import carimage from "./assets/car.jpeg";
-
+import { useCallback, useState, useEffect } from "react";
 import { MdMenu } from "react-icons/md";
+import ReactLoading from "react-loading";
+
 import {
   FaAngleDoubleUp,
   FaCarSide,
@@ -20,9 +22,10 @@ import {
   FaQuestion,
 } from "react-icons/fa";
 import { GoPerson, GoSignIn, GoSignOut } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Home from "./pages/Home";
 import { useSelector, useDispatch } from "react-redux";
+import { setUserDetails } from "./features/userSlice";
 import { setCollapseStatus } from "./features/sidebarSlice";
 import Cars from "./pages/Cars";
 import Layout from "./components/Layout";
@@ -31,6 +34,27 @@ import Faq from "./pages/Faq";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+
+const authroutes = [
+  {
+    path: "/login",
+    exact: true,
+    main: () => (
+      <Layout>
+        <Login />
+      </Layout>
+    ),
+  },
+  {
+    path: "/signup",
+    exact: true,
+    main: () => (
+      <Layout>
+        <Signup />
+      </Layout>
+    ),
+  },
+];
 
 const routes = [
   {
@@ -79,112 +103,223 @@ const routes = [
       </Layout>
     ),
   },
-  {
-    path: "/login",
-    exact: true,
-    main: () => (
-      <Layout>
-        <Login />
-      </Layout>
-    ),
-  },
-  {
-    path: "/signup",
-    exact: true,
-    main: () => (
-      <Layout>
-        <Signup />
-      </Layout>
-    ),
-  },
 ];
 
 function App() {
   const status = useSelector((state) => state.sidebar.collapseStatus);
   const dispatch = useDispatch();
+  const [isAuthenticated, setisAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const user = useSelector((state) => state.user);
 
+  const verifyUser = useCallback(() => {
+    fetch(
+      "http://localhost:5000/refreshToken",
+      { method: "POST", credentials: "include" } // could also try 'same-origin'
+    )
+      .then(async (response) => {
+        if (response.status === 200) {
+          const data = await response.json();
+
+          let data1 = {
+            name: user.name,
+            token: data.token,
+            userDetails: {},
+          };
+          dispatch(setUserDetails(data1));
+          setisAuthenticated(true);
+          setIsLoading(false);
+        } else {
+          let data1 = {
+            name: "",
+            token: "",
+            userDetails: {},
+          };
+          dispatch(setUserDetails(data1));
+          setisAuthenticated(false);
+          setIsLoading(false);
+        }
+        // call refreshToken every 5 minutes to renew the authentication token.
+        setTimeout(verifyUser, 5 * 60 * 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [user.name, dispatch]);
+
+  useEffect(() => {
+    verifyUser();
+    if (user.token !== "") {
+      setisAuthenticated(true);
+      setIsLoading(false);
+    }
+  }, [verifyUser]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/user/me", {
+      method: "GET",
+      credentials: "include",
+      // Pass authentication token as bearer token in header
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    }).then(async (response) => {
+      if (response.ok) {
+        const data = await response.json();
+        console.log("🚀 ~ file: App.js ~ line 77 ~ useEffect ~ data", data);
+        let data1 = {
+          name: user.name,
+          token: user.token,
+          userDetails: data,
+        };
+        dispatch(setUserDetails(data1));
+        // setUserContext(oldValues => {
+        //   return { ...oldValues, details: data }
+        // })
+      } else {
+        if (response.status === 401) {
+          // Edge case: when the token has expired.
+          // This could happen if the refreshToken calls have failed due to network error or
+          // User has had the tab open from previous day and tries to click on the Fetch button
+          // window.location.reload();
+        } else {
+          // setUserContext(oldValues => {
+          //   return { ...oldValues, details: null }
+          // })
+        }
+      }
+    });
+  }, [user.token]);
+  const start_signOut = () => {
+    fetch("http://localhost:5000/logout", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    }).then(async (response) => {
+      // setUserContext(oldValues => {
+      //   return { ...oldValues, details: undefined, token: null }
+      // })
+      console.log(response);
+
+      let data1 = {
+        name: "",
+        token: "",
+        // email: email,
+      };
+
+      dispatch(setUserDetails(data1));
+      setisAuthenticated(false);
+
+      window.localStorage.setItem("logout", Date.now());
+    });
+  };
   return (
-    <Router>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-        }}
-      >
-        <StickyBox>
-          <ProSidebar collapsed={status} style={{ height: "100vh" }}>
-            <SidebarHeader>
-              <Menu iconShape="square">
-                <MenuItem
-                  icon={<MdMenu />}
-                  onClick={() => {
-                    dispatch(setCollapseStatus(!status));
-                  }}
-                >
-                  Car Rental
-                </MenuItem>
-                <img
-                  src={carimage}
-                  alt="logo"
-                  width="100%"
-                  style={{
-                    padding: "10px 0px",
-                  }}
+    <>
+      {isLoading ? (
+        <ReactLoading
+          id="loading"
+          type="spin"
+          color="#000000"
+          height={100}
+          width={100}
+        />
+      ) : (
+        <Router>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+            }}
+          >
+            <StickyBox>
+              <ProSidebar collapsed={status} style={{ height: "100vh" }}>
+                <SidebarHeader>
+                  <Menu iconShape="square">
+                    <MenuItem
+                      icon={<MdMenu />}
+                      onClick={() => {
+                        dispatch(setCollapseStatus(!status));
+                      }}
+                    >
+                      Car Rental
+                    </MenuItem>
+                    <img
+                      src={carimage}
+                      alt="logo"
+                      width="100%"
+                      style={{
+                        padding: "10px 0px",
+                      }}
+                    />
+                  </Menu>
+                </SidebarHeader>
+                <Menu iconShape="square">
+                  <MenuItem icon={<FaHome />}>
+                    <Link to="/">Home</Link>
+                  </MenuItem>
+                  <MenuItem icon={<FaCarSide />}>
+                    <Link to="/cars">Cars</Link>
+                  </MenuItem>
+                  <MenuItem icon={<FaQuestion />}>
+                    <Link to="/faq">FAQ</Link>
+                  </MenuItem>
+                  <MenuItem icon={<GoPerson />}>
+                    <Link to="/profile">Profile</Link>
+                  </MenuItem>
+                  <MenuItem icon={<GoSignIn />}>
+                    <Link to="/aboutus">About us</Link>
+                  </MenuItem>
+                </Menu>
+                <SidebarFooter>
+                  <Menu iconShape="square">
+                    <MenuItem icon={<FaGithub />}>
+                      <a href="https://github.com/PiyushIngale007/Multiplayer-Quiz/">
+                        View Source
+                      </a>
+                    </MenuItem>
+                  </Menu>
+                  <Menu iconShape="square">
+                    <MenuItem
+                      icon={<GoSignOut />}
+                      onClick={() => start_signOut()}
+                    >
+                      <Link to="/login">Sign Out</Link>
+                    </MenuItem>
+                  </Menu>
+                </SidebarFooter>
+              </ProSidebar>
+            </StickyBox>
+            <Switch>
+              {authroutes.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  exact={route.exact}
+                  children={<route.main />}
                 />
-              </Menu>
-            </SidebarHeader>
-            <Menu iconShape="square">
-              <MenuItem icon={<FaHome />}>
-                <Link to="/">Home</Link>
-              </MenuItem>
-              <MenuItem icon={<FaCarSide />}>
-                <Link to="/cars">Cars</Link>
-              </MenuItem>
-              <MenuItem icon={<FaQuestion />}>
-                <Link to="/faq">FAQ</Link>
-              </MenuItem>
-              <MenuItem icon={<GoPerson />}>
-                <Link to="/profile">Profile</Link>
-              </MenuItem>
-              <MenuItem icon={<GoSignIn />}>
-                <Link to="/aboutus">About us</Link>
-              </MenuItem>
-            </Menu>
-            <SidebarFooter>
-              <Menu iconShape="square">
-                <MenuItem icon={<FaGithub />}>
-                  <a href="https://github.com/PiyushIngale007/Multiplayer-Quiz/">
-                    View Source
-                  </a>
-                </MenuItem>
-              </Menu>
-              <Menu iconShape="square">
-                <MenuItem icon={<GoSignOut />}>
-                  <Link to="/login">Sign Out</Link>
-                </MenuItem>
-              </Menu>
-            </SidebarFooter>
-          </ProSidebar>
-        </StickyBox>
-        <Switch>
-          {routes.map((route, index) => (
-            // You can render a <Route> in as many places
-            // as you want in your app. It will render along
-            // with any other <Route>s that also match the URL.
-            // So, a sidebar or breadcrumbs or anything else
-            // that requires you to render multiple things
-            // in multiple places at the same URL is nothing
-            // more than multiple <Route>s.
-            <Route
-              key={index}
-              path={route.path}
-              exact={route.exact}
-              children={<route.main />}
-            />
-          ))}
-        </Switch>
-      </div>
-    </Router>
+              ))}
+              {isAuthenticated ? (
+                routes.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                    auth={isAuthenticated}
+                    children={<route.main />}
+                  />
+                ))
+              ) : (
+                <Redirect to="/login" />
+              )}
+            </Switch>
+          </div>
+        </Router>
+      )}
+    </>
   );
 }
 
