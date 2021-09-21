@@ -235,64 +235,66 @@ function App() {
               alignItems: "flex-start",
             }}
           >
-            <StickyBox>
-              <ProSidebar collapsed={status} style={{ height: "100vh" }}>
-                <SidebarHeader>
+            {isAuthenticated ? (
+              <StickyBox>
+                <ProSidebar collapsed={status} style={{ height: "100vh" }}>
+                  <SidebarHeader>
+                    <Menu iconShape="square">
+                      <MenuItem
+                        icon={<MdMenu />}
+                        onClick={() => {
+                          dispatch(setCollapseStatus(!status));
+                        }}
+                      >
+                        Car Rental
+                      </MenuItem>
+                      <img
+                        src={carimage}
+                        alt="logo"
+                        width="100%"
+                        style={{
+                          padding: "10px 0px",
+                        }}
+                      />
+                    </Menu>
+                  </SidebarHeader>
                   <Menu iconShape="square">
-                    <MenuItem
-                      icon={<MdMenu />}
-                      onClick={() => {
-                        dispatch(setCollapseStatus(!status));
-                      }}
-                    >
-                      Car Rental
+                    <MenuItem icon={<FaHome />}>
+                      <Link to="/">Home</Link>
                     </MenuItem>
-                    <img
-                      src={carimage}
-                      alt="logo"
-                      width="100%"
-                      style={{
-                        padding: "10px 0px",
-                      }}
-                    />
-                  </Menu>
-                </SidebarHeader>
-                <Menu iconShape="square">
-                  <MenuItem icon={<FaHome />}>
-                    <Link to="/">Home</Link>
-                  </MenuItem>
-                  <MenuItem icon={<FaCarSide />}>
-                    <Link to="/cars">Cars</Link>
-                  </MenuItem>
-                  <MenuItem icon={<FaQuestion />}>
-                    <Link to="/faq">FAQ</Link>
-                  </MenuItem>
-                  <MenuItem icon={<GoPerson />}>
-                    <Link to="/profile">Profile</Link>
-                  </MenuItem>
-                  <MenuItem icon={<GoSignIn />}>
-                    <Link to="/aboutus">About us</Link>
-                  </MenuItem>
-                </Menu>
-                <SidebarFooter>
-                  <Menu iconShape="square">
-                    <MenuItem icon={<FaGithub />}>
-                      <a href="https://github.com/PiyushIngale007/Multiplayer-Quiz/">
-                        View Source
-                      </a>
+                    <MenuItem icon={<FaCarSide />}>
+                      <Link to="/cars">Cars</Link>
+                    </MenuItem>
+                    <MenuItem icon={<FaQuestion />}>
+                      <Link to="/faq">FAQ</Link>
+                    </MenuItem>
+                    <MenuItem icon={<GoPerson />}>
+                      <Link to="/profile">Profile</Link>
+                    </MenuItem>
+                    <MenuItem icon={<GoSignIn />}>
+                      <Link to="/aboutus">About us</Link>
                     </MenuItem>
                   </Menu>
-                  <Menu iconShape="square">
-                    <MenuItem
-                      icon={<GoSignOut />}
-                      onClick={() => start_signOut()}
-                    >
-                      <Link to="/login">Sign Out</Link>
-                    </MenuItem>
-                  </Menu>
-                </SidebarFooter>
-              </ProSidebar>
-            </StickyBox>
+                  <SidebarFooter>
+                    <Menu iconShape="square">
+                      <MenuItem icon={<FaGithub />}>
+                        <a href="https://github.com/PiyushIngale007/Multiplayer-Quiz/">
+                          View Source
+                        </a>
+                      </MenuItem>
+                    </Menu>
+                    <Menu iconShape="square">
+                      <MenuItem
+                        icon={<GoSignOut />}
+                        onClick={() => start_signOut()}
+                      >
+                        <Link to="/login">Sign Out</Link>
+                      </MenuItem>
+                    </Menu>
+                  </SidebarFooter>
+                </ProSidebar>
+              </StickyBox>
+            ) : null}
             <Switch>
               {authroutes.map((route, index) => (
                 <Route

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { TimelineLite, TweenMax, Power3, Quad } from "gsap";
+import { useSelector, useDispatch } from "react-redux";
+import { setUserDetails } from "../features/userSlice";
 
 const AppWrap = styled.div`
   grid-column-start: 2;
@@ -84,10 +86,10 @@ const ContentContainer = styled.div`
   }
 
   h3 {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 700;
     margin-bottom: 25px;
-    text-transform: uppercase;
+    text-transform: lowercase;
 
     &:after {
       content: "";
@@ -123,6 +125,7 @@ const Profile = () => {
   let card = useRef(null);
   let img = useRef(null);
   let content = useRef(null);
+  const user = useSelector((state) => state.user);
 
   let tl = new TimelineLite();
 
@@ -156,15 +159,13 @@ const Profile = () => {
           <Image />
           <HeaderContainer>
             <ProfileImage ref={(el) => (img = el)}>
-              <img
-                src="https://images.unsplash.com/photo-1504884790557-80daa3a9e621?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                alt="profile image"
-              />
+              <img src={user.userDetails.svgAvatar} alt="profile image" />
             </ProfileImage>
           </HeaderContainer>
           <ContentContainer ref={(el) => (content = el)}>
-            <h2>Jane Doe</h2>
-            <h3>Developer</h3>
+            <h2>{user.userDetails.name}</h2>
+            <h3>{user.userDetails.username}</h3>
+            <h3>{user.userDetails.email}</h3>
             <p>The cake is a lie.</p>
           </ContentContainer>
         </AppContainer>

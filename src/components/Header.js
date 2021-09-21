@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
@@ -14,10 +15,20 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import MoreIcon from "@mui/icons-material/MoreVert";
 import StickyBox from "react-sticky-box/dist/esnext";
+import { useSelector, useDispatch } from "react-redux";
+import { setUserDetails } from "../features/userSlice";
 
 export default function Header(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [userData, setuserData] = useState({});
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setuserData(user.userDetails);
+  }, [user.userDetails]);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -37,6 +48,26 @@ export default function Header(props) {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+  const signOut = () => {
+    fetch("http://localhost:5000/api/user/logout", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    }).then(async (response) => {
+      let data1 = {
+        name: "",
+        token: "",
+        // email: email,
+      };
+
+      dispatch(setUserDetails(data1));
+
+      window.localStorage.setItem("logout", Date.now());
+    });
   };
 
   const menuId = "primary-search-account-menu";
@@ -88,7 +119,9 @@ export default function Header(props) {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <div style={{ width: "40px" }}>
+            <img src={userData.svgAvatar}></img>
+          </div>{" "}
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -119,7 +152,9 @@ export default function Header(props) {
                 onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle />
+                <div style={{ width: "40px" }}>
+                  <img src={userData.svgAvatar}></img>
+                </div>{" "}
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
