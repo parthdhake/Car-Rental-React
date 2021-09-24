@@ -296,14 +296,19 @@ function App() {
               </StickyBox>
             ) : null}
             <Switch>
-              {authroutes.map((route, index) => (
-                <Route
-                  key={index}
-                  path={route.path}
-                  exact={route.exact}
-                  children={<route.main />}
-                />
-              ))}
+              {!isAuthenticated ? (
+                authroutes.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                    children={<route.main />}
+                  />
+                ))
+              ) : (
+                <Redirect to="/home" />
+              )}
+
               {isAuthenticated ? (
                 routes.map((route, index) => (
                   <Route
