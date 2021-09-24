@@ -119,7 +119,7 @@ export default function Header(props) {
           aria-haspopup="true"
           color="inherit"
         >
-          <div style={{ width: "40px" }}>
+          <div style={{ width: "40px", display: "flex" }}>
             <img src={userData.svgAvatar}></img>
           </div>{" "}
         </IconButton>
@@ -129,7 +129,7 @@ export default function Header(props) {
   );
 
   return (
-    <StickyBox>
+    <StickyBox style={{ zIndex: 1 }}>
       <Box sx={{ flexGrow: 1 }} style={{ margin: "-10px" }}>
         <AppBar position="static">
           <Toolbar>
