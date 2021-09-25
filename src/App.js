@@ -223,7 +223,7 @@ function App() {
         <ReactLoading
           id="loading"
           type="spin"
-          color="#000000"
+          color="#ffffff"
           height={100}
           width={100}
         />
