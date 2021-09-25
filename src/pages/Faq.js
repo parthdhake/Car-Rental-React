@@ -12,16 +12,13 @@ import "./css/main.css";
 
 export default function Faq() {
   return (
-    <div className="top-offset AboutUs">
+    <div className="AboutUs">
       <Header pageName="Home" />
 
-      <div
-        className="AboutUsAccordionHeading"
-        style={{ margin: "0 200px 0 200px" }}
-      >
+      <div className="AboutUsAccordionHeading">
         <h3>Frequently Asked Questions</h3>
       </div>
-      <div className="AboutUsAccordion" style={{ margin: "0 200px 0 200px" }}>
+      <div style={{ margin: "0 200px 0 200px" }}>
         <h4>Payment</h4>
         <Accordion>
           <AccordionSummary
