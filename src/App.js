@@ -34,6 +34,7 @@ import Faq from "./pages/Faq";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import CarDetails from "./pages/CarDetails";
 
 const authroutes = [
   {
@@ -73,6 +74,14 @@ const routes = [
     main: () => (
       <Layout>
         <Cars />
+      </Layout>
+    ),
+  },
+  {
+    path: "/cars",
+    main: () => (
+      <Layout>
+        <CarDetails />
       </Layout>
     ),
   },

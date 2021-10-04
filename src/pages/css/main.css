@@ -17,3 +17,12 @@
 .AboutUs {
   text-align: center;
 }
+
+.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+  color: antiquewhite !important;
+  background-color: #1d1d1d !important;
+}
+
+.css-yw020d-MuiAccordionSummary-expandIconWrapper {
+  color: #fff !important;
+}

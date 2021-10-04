@@ -43,7 +43,6 @@ div .nav {
   margin: 0 auto;
   width: 500px;
   height: 100%;
-  transform: skew(-10deg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,31 +61,26 @@ div .nav {
 }
 @media screen and (max-width: 500px) {
   .JumboParallel {
-    transform: skew(-5deg);
     width: 330px;
   }
 }
 @media screen and (max-width: 372px) {
   .JumboParallel {
-    transform: skew(0deg);
     width: 290px;
   }
 }
 
 .JumboContent {
-  transform: skew(10deg);
   width: 80%;
   text-align: center;
 }
 @media screen and (max-width: 500px) {
   .JumboContent {
-    transform: skew(5deg);
     width: 85%;
   }
 }
 @media screen and (max-width: 372px) {
   .JumboContent {
-    transform: skew(0deg);
   }
 }
 
@@ -164,7 +158,8 @@ div .nav {
   text-align: center;
   height: 230px;
   display: flex;
-  background: azure;
+  background: #1d1d1d;
+  color: #f8f8f8;
   flex-direction: column;
   justify-content: space-between;
   transition: all 0.16s ease-in-out;
@@ -379,7 +374,6 @@ div .nav {
 }
 
 .SingleCar {
-  width: 1060px;
   margin: 0 auto;
 }
 @media screen and (max-width: 1060px) {
@@ -389,8 +383,8 @@ div .nav {
 }
 .SingleCarContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   justify-items: center;
+  justify-content: space-evenly;
   margin-top: 60px;
 }
 @media screen and (max-width: 850px) {
@@ -402,22 +396,18 @@ div .nav {
 .SingleCarImgs {
   margin: 0 auto;
   margin-bottom: 30px;
+  background: #1d1d1d;
   width: 600px;
   height: 460px;
   border-radius: 10px;
   display: grid;
   align-items: center;
-  transform: translateX(-60vw);
 }
+
 @media screen and (max-width: 1060px) {
   .SingleCarImgs {
     width: 400px;
     height: 305px;
-  }
-}
-@media screen and (max-width: 850px) {
-  .SingleCarImgs {
-    transform: translateX(-100vw);
   }
 }
 @media screen and (max-width: 420px) {
@@ -433,12 +423,11 @@ div .nav {
 .SingleCarDescription {
   width: 400px;
   border-radius: 10px;
+  background: #1d1d1d;
   margin: 0 auto;
-  transform: translateX(50vw);
 }
 @media screen and (max-width: 850px) {
   .SingleCarDescription {
-    transform: translateX(100vw);
   }
 }
 @media screen and (max-width: 420px) {

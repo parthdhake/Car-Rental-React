@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import user from "../assets/icons/user-silhouette.png";
 import dashboard from "../assets/icons/dashboard.png";
-import dollarSign from "../assets/icons/dollar-sign-symbol-bold-text.png";
+import rupeeSign from "../assets/icons/rupee.svg";
 import { Link } from "react-router-dom";
 import { TweenLite } from "gsap";
 import "./main.css";
@@ -50,7 +50,7 @@ export default function CarCards(props) {
 
   return (
     <Link
-      to={`/rent-a-car/vehicles/${props.carId}`}
+      to={`cars/${props.carId}`}
       className="RouterLink"
       ref={CarCards}
       onMouseEnter={handleMouseEnter}
@@ -73,7 +73,7 @@ export default function CarCards(props) {
             <p className="VehicleSpecs-p">{props.mpg} mpg</p>
           </div>
           <div className="VehicleSpecs-spec">
-            <img src={dollarSign} alt="dollar sign" style={{ width: "20px" }} />
+            <img src={rupeeSign} alt="dollar sign" style={{ width: "13px" }} />
             <p className="VehicleSpecs-p">{props.price} Per Day</p>
           </div>
         </div>

@@ -24,9 +24,9 @@ const seatsOptions = [
 ];
 
 const priceOptions = [
-  { value: "40-60", label: "40$ - 60$" },
-  { value: "61-80", label: "61$ - 80$" },
-  { value: "81-100", label: "81$ - 100$" },
+  { value: "4000-6000", label: "₹4000 - ₹6000" },
+  { value: "6100-8000", label: "₹6100 - ₹8000" },
+  { value: "8100-10000", label: "₹8100 - ₹10000" },
 ];
 
 export default function Cars() {
@@ -93,18 +93,21 @@ export default function Cars() {
         <div className="filter">
           <Select
             name="type"
+            placeholder={<div>Type</div>}
             onChange={handleTypeChange.bind(this)}
             isClearable={true}
             options={typeOptions}
           />
           <Select
             name="seat"
+            placeholder={<div>Select Number of Seats</div>}
             onChange={handleSeatChange.bind(this)}
             isClearable={true}
             options={seatsOptions}
           />
           <Select
             name="price"
+            placeholder={<div>Select Price Range</div>}
             onChange={handlePriceChange.bind(this)}
             isClearable={true}
             options={priceOptions}
