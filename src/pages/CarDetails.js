@@ -148,7 +148,7 @@ export default function CarDetails() {
               </div>
             </div>
             <div style={{ textAlign: "center" }}>
-              {car.availableCars === 1 ? (
+              {car.availableCars ? (
                 <p style={{ color: "greenyellow" }}>Car Available</p>
               ) : (
                 <p style={{ color: "red" }}>Car Not Available</p>
